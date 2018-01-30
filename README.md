@@ -1,4 +1,4 @@
-# Tippy
+# unimedia_ip_checker
 
 ## Installation
 
