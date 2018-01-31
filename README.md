@@ -19,17 +19,42 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
- before_filter :check_ip_block in class ApplicationController
+step 1:
+ 
+ create before filter in ApplicationController 
+
+ before_filter :check_ip_block
+
+step 2: 
+  
+  create check_ip_block method in ApplicationController 
+
   def check_ip_block
     require 'ip_checker.rb'
-    ip=IpChecker.new('admin')
+    # admin is current project name
+    ip=IpChecker.new('admin') 
       unless ip.is_allow_myip(request)
        render(:file => "#{Rails.root.to_s}/public/403.html",:status => 403.6, :layout => false)
        return
       end   
   end
-```
 
+step 2: 
+
+ create 403.html file in public folder
+
+  <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+  <html><head>
+  <title>403 Forbidden</title>
+  </head><body>
+  <h1>Forbidden</h1>
+  <p>You don't have permission to access /
+  on this server.</p>
+  <hr>
+  <address></address>
+  </body></html>
+
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -43,5 +68,5 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/zulnem
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [Unimedia Solutions License](http://unimedia.mn).
 
