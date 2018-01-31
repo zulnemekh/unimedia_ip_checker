@@ -4,7 +4,7 @@ class IpChecker
   end
 
 
-  def letme_in(request)
+  def is_block_myip(request)
      ip ||= request.remote_ip
     # :auth_type = 1 block
     # :auth_type = 0 allow
@@ -17,12 +17,12 @@ class IpChecker
       
       if white_list_ip
         # black list
-          return false if ip_address            
+          return true if ip_address            
         else
           # white list
-          return false unless ip_address            
+          return true unless ip_address            
       end 
-      return true
+      return false
     
   end
 end
