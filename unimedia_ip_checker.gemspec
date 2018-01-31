@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'unimedia_ip_checker'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.date        = '2018-01-31'
   s.summary     = "unimedia_ip_checker!"
   s.description = "Ip check then block or allow"

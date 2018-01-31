@@ -5,7 +5,7 @@ class IpChecker
 
 
   def is_block_myip(request)
-     ip ||= request.remote_ip
+     ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
     # :auth_type = 1 block
     # :auth_type = 0 allow
       
