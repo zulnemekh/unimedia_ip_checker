@@ -25,8 +25,10 @@ class IpChecker
               dtb_ip_address_block.ip_address = '#{ip}'
                   AND dtb_ip_address_block.project = '#{@project_name}'")
     
-      if white_list_ip
-          return ip_address.first ? true : false        
+      if white_list_ip 
+          return true if ip_address.first
+        else
+          return true unless ip_address.first
       end 
       return false
     

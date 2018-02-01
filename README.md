@@ -32,7 +32,7 @@ step 2:
 ```ruby
   def check_ip_block
     # admin is current project name
-    ip=IpChecker.new('admin') 
+    ip=IpChecker.new(IP_CHECKER_PROJECT_NAME) 
        if ip.is_block_ip(request)
         render(:file => "#{Rails.root.to_s}/public/403.html",:status => 403.6, :layout => false)
        return
@@ -53,6 +53,12 @@ step 3:
   <hr>
   <address></address>
   </body></html>
+```
+step 4: 
+
+ create ip_checker.rb file in config/initializers folder
+```ruby
+  IP_CHECKER_PROJECT_NAME = "project_name"
 ```
 
 ## Development
