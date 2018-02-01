@@ -3,26 +3,33 @@ class IpChecker
     @project_name = project_name
   end
 
-
-  def is_block_myip(request)
-     ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
-    # :auth_type = 1 block
-    # :auth_type = 0 allow
+  def is_block_ip(request)
+      ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
+      # :auth_type = 1 block
+      # :auth_type = 0 allow
+      connection = ActiveRecord::Base.connection()
+      any_ip = connection.execute("SELECT *              
+          FROM
+              dtb_ip_address_block
+          WHERE
+              dtb_ip_address_block.ip_address = 'all'
+                  AND dtb_ip_address_block.auth_type = 1
+                  AND dtb_ip_address_block.project = '#{@project_name}';")
       
-      any_ip = Base::DtbIpAddressBlock.where(:ip_address => 'all', :auth_type => 1, :project => @project_name).first    
-
-      white_list_ip = any_ip && any_ip.auth_type.to_s == '1' ? true : false
+      white_list_ip = any_ip.first && any_ip.first[2].to_s == '1' ? true : false
+        
+      ip_address = connection.execute(" SELECT *
+          FROM
+              dtb_ip_address_block
+          WHERE
+              dtb_ip_address_block.ip_address = '#{ip}'
+                  AND dtb_ip_address_block.project = '#{@project_name}'")
     
-      ip_address = Base::DtbIpAddressBlock.where(:ip_address => ip, :project => @project_name).first
-      
       if white_list_ip
-        # black list
-          return true if ip_address            
-        else
-          # white list
-          return true unless ip_address            
+          return ip_address.first ? true : false        
       end 
       return false
     
   end
+  
 end

@@ -33,7 +33,7 @@ step 2:
   def check_ip_block
     # admin is current project name
     ip=IpChecker.new('admin') 
-       if ip.is_block_myip(request)
+       if ip.is_block_ip(request)
         render(:file => "#{Rails.root.to_s}/public/403.html",:status => 403.6, :layout => false)
        return
       end   
